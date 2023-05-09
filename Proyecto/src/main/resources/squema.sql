@@ -15,9 +15,6 @@ create table Plataforma (
 	id bigint not null auto_increment, 
 	nombrePlataforma varchar(20),
     descripcion blob,
-	imagen varchar(512),
-    pvp float not null,    	
-    descuento float not null, 
 	primary key (id)
 );
 
