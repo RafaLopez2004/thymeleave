@@ -11,6 +11,18 @@ create table Genero (
 	primary key (nombre)
 );
 
+
+
+create table Plataforma (
+	id bigint not null auto_increment, 
+	nombrePlataforma varchar(20),
+    descripcion blob,
+	imagen varchar(512),
+    pvp float not null,    	
+    descuento float not null, 
+	primary key (id)
+);
+
 create table Juego (
 	id bigint not null auto_increment, 
 	nombre varchar(512), 
@@ -23,14 +35,4 @@ create table Juego (
 	primary key (id),
     constraint fk_juego_genero foreign key (genero) references Genero(nombre) ON DELETE CASCADE ON UPDATE CASCADE,
     constraint fk_juego_plataforma foreign key (plataforma) references Plataforma(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-create table Plataforma (
-	id bigint not null auto_increment, 
-	nombrePlataforma varchar(20),
-    descripcion blob,
-	imagen varchar(512),
-    pvp float not null,    	
-    descuento float not null, 
-	primary key (id)
 );
