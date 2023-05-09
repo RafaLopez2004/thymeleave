@@ -11,8 +11,6 @@ create table Genero (
 	primary key (nombre)
 );
 
-
-
 create table Plataforma (
 	id bigint not null auto_increment, 
 	nombrePlataforma varchar(20),
