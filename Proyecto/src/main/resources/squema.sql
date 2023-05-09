@@ -21,8 +21,8 @@ create table Juego (
 	imagen varchar(512), 
     plataforma bigint,
 	primary key (id),
-    constraint fk_juego_genero foreign key (genero) references Genero(nombre) ON DELETE CASCADE,
-    constraint fk_juego_plataforma foreign key (plataforma) references Plataforma(id) ON DELETE CASCADE
+    constraint fk_juego_genero foreign key (genero) references Genero(nombre) ON DELETE CASCADE ON UPDATE CASCADE,
+    constraint fk_juego_plataforma foreign key (plataforma) references Plataforma(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table Plataforma (
