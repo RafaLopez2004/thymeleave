@@ -3,11 +3,13 @@ package dam.model;
 import java.util.HashSet;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 
+@Entity
 public class Genero {
 	
 	@Id
@@ -16,7 +18,7 @@ public class Genero {
 	@Lob
 	String descripcion;
 	
-	@OneToMany(mappedBy="juego", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="genero", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
 	private HashSet<Juego> juegos = new HashSet<Juego>();
 	
 	public Genero(String nombre, String descripcion) {
