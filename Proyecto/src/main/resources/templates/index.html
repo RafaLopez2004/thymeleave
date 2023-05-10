@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title></title>
+
+<!-- Bootstrap -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Openwebinars.net Shop</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Opciones <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="admin/list-genero.html"
+								th:href="@{/admin/genero/}">Gestión de generos</a></li>
+							<li><a href="admin/list-juego.html"
+								th:href="@{/admin/juego/}">Gestión de juegos</a></li>
+						</ul></li>
+				</ul>				
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<h3>Categorías</h3>
+				<ul class="nav nav-sidebar">
+					<li th:each="genero : ${generos}">
+					<a href="#"
+						th:href="@{/(idGenero=${genero.id})}"
+						th:text="${genero.nombre}">genero</a></li>
+				</ul>
+			</div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h1>Tienda de Er Rafa</h1>
+				<div class="row">
+					<div class="col-sm-3" th:each="juego : ${juegos}">						
+						<a href="#" th:href="@{/juego/{id}(id=${juego.id})}">
+							<div class="col-item">
+								<div class="photo">
+									<img src="http://placehold.it/350x260"
+										th:src="${#strings.isEmpty(juego.imagen)} ? 'http://placehold.it/350x260' : ${juego.imagen}"
+										class="img-responsive" alt="a" />
+								</div>
+								<div class="info">
+									<div class="row">
+										<div class="price col-md-12">
+											<h5 th:text="${#strings.abbreviate(juego.nombre,65)}">Nombre</h5>
+											<div class="price-text-color">
+												<span
+													th:text="${juego.descuento == 0} 
+																? ${#numbers.formatCurrency(juego.pvp)} 
+																: ${#numbers.formatCurrency(juego.pvp * (1 - juego.descuento))}">10</span>
+	
+												<th:block th:if="${juego.descuento > 0}">
+													<span class="price-original"
+														th:text="${#numbers.formatCurrency(juego.pvp)}">12,00€</span>
+													<span class="label label-danger"
+														th:text=${#numbers.formatPercent(juego.descuento,1,0)}>1%</span>
+												</th:block>
+											</div>
+										</div>
+										<div class="row">
+											<div class="rating col-md-4">
+												<p>
+													<span
+														th:text="juego.plataforma">4</span>/5
+												</p>
+											</div>
+											<div class="rating col-md-8">
+												<span class="glyphicon glyphicon-star"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
