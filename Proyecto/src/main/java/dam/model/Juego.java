@@ -29,6 +29,8 @@ public class Juego {
 	@ManyToOne
 	private Plataforma plataforma;
 	
+	public Juego() {}
+	
 	public Juego(Long id, String nombre, String descripcion, float pvp, float descuento, String imagen, Genero genero,
 			Plataforma plataforma) {
 		super();
@@ -42,6 +44,10 @@ public class Juego {
 		this.plataforma = plataforma;
 	}
 
+	public String getPlataformaNombre() {
+		return this.plataforma.getNombrePlataforma();
+	}
+	
 	public Long getId() {
 		return id;
 	}

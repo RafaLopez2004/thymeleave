@@ -20,10 +20,6 @@ import dam.repositories.GeneroRepository;
 			return repositorio.findAll();
 		}	
 		
-		public List<Genero> findDestacadas() {
-			return repositorio.findDestacadas();
-		}
-		
 		public Genero save(Genero Genero) {
 			return repositorio.save(Genero);
 		}
@@ -37,7 +33,7 @@ import dam.repositories.GeneroRepository;
 			repositorio.delete(result);
 			return result;
 		}
-		
+
 		
 
 	}

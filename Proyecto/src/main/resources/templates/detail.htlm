@@ -7,6 +7,7 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title></title>
 
+
 <!-- Bootstrap -->
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -24,7 +25,6 @@
 <body>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -42,80 +42,74 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Opciones <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="admin/list-Genero.html"
-								th:href="@{/admin/Genero/}">Gestión de Generos</a></li>
-							<li><a href="admin/list-Juego.html"
-								th:href="@{/admin/Juego/}">Gestión de Juegos</a></li>
+							<li><a href="/admin/Genero/"
+								th:href="@{/admin/Genero/}">Gestión de categorías</a></li>
+							<li><a href="/admin/Juego/" th:href="@{/admin/Juego/}">Gestión
+									de Juegos</a></li>
 						</ul></li>
-				</ul>
+				</ul>				
 			</div>
+
 		</div>
-
-
 	</nav>
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<h3>Generos</h3>
-
-				<ul class="nav nav-sidebar">
-					<li th:each="Genero : ${Generos}"><a href="#"
-						th:href="@{/(idGenero=${Genero.id})}" th:text="${Genero.nombre}">Generos</a></li>
-				</ul>
-
+			<div class="col-md-4">
+				<img src="http://placehold.it/400x400" alt=""
+					th:src="${#strings.isEmpty(Juego.imagen)} ? 'http://placehold.it/350x260' : ${Juego.imagen}"
+					class="img-responsive" />
 			</div>
-
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h1>Tienda</h1>
-				<div class="row">
-					<div class="col-sm-3" th:each="Juego : ${Juegos}">
-						<a href="#" th:href="@{/Juego/{id}(id=${Juego.id})}">
-							<div class="col-item">
-								<div class="photo">
-									<img src="http://placehold.it/350x260"
-										th:src="${#strings.isEmpty(Juego.imagen)} ? 'http://placehold.it/350x260' : ${Juego.imagen}"
-										class="img-responsive" alt="a" />
-								</div>
-								<div class="info">
-									<div class="row">
-										<div class="price col-md-12">
-											<h5 th:text="${#strings.abbreviate(Juego.nombre,65)}">Nombre</h5>
-											<div class="price-text-color">
-												<span
-													th:text="${Juego.descuento == 0} 
-																? ${#numbers.formatCurrency(Juego.pvp)} 
-																: ${#numbers.formatCurrency(Juego.pvp * (1 - Juego.descuento))}">10</span>
-
-												<th:block th:if="${Juego.descuento > 0}">
-													<span class="price-original"
-														th:text="${#numbers.formatCurrency(Juego.pvp)}">12,00€</span>
-													<span class="label label-danger"
-														th:text=${#numbers.formatPercent(Juego.descuento,1,0)}>1%</span>
-												</th:block>
-											</div>
-										</div>
-										<div class="row">
-											<div class="rating col-md-4">
-												<p>
-													<span th:text="${#strings.abbreviate(Juego.getPlataformaNombre,20)}"></span>
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
+			<div class="col-md-8">
+				<h1 class="product-name" th:text=${Juego.nombre}>Nombre del
+					Juego</h1>
+				<div class="product-price">
+					<div class="row">
+						<div class=col-md-4>
+							<span class="pvp"
+								th:text="${Juego.descuento == 0} ? ${#numbers.formatCurrency(Juego.pvp)} : ${#numbers.formatCurrency(Juego.pvp * (1 - Juego.descuento))}">100€</span>
+						</div>
+						<th:block th:if="${Juego.descuento > 0}">
+							<div class="col-md-3 pvp-no-discounted">
+								<span th:text="${#numbers.formatCurrency(Juego.pvp)}">120€</span>
 							</div>
-						</a>
+							<div class="col-md-3 discount">
+								<span class="label-discount">Descuento </span> <span
+									class="label label-danger"
+									th:text=${#numbers.formatPercent(Juego.descuento,1,0)}>12%</span>
+							</div>
+						</th:block>
 					</div>
 				</div>
+				<! ––
+				<div class="row">
+					<div class="detail-rating col-md-4">
+						<span th:each="i:${#numbers.sequence(1,5)}" class="glyphicon"
+							th:classappend="${i <= Juego.getPuntuacionMedia()} ? 'glyphicon-star': 'glyphicon-star-empty'"></span>
+					</div>
 
+					<div class="detail-rating col-md-4">
+						<p>
+							<span
+							th:text="${#numbers.formatDecimal(Juego.getPuntuacionMedia(),1,1)}">4</span>/5
+						</p>
+					</div>
+				</div> -- >
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Características</h3>
+				<p th:text="${Juego.descripcion}">Descripción</p>
 			</div>
 		</div>
 	</div>
+
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 </html>

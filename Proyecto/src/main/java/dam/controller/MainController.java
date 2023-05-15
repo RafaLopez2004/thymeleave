@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dam.model.Juego;
 import dam.repositories.JuegoRepository;
+import dam.services.GeneroService;
 import dam.services.JuegoService;
 
 
@@ -19,7 +20,7 @@ public class MainController {
 
 
 	@Autowired
-	private GeneroService categoryService;
+	private GeneroService generoService;
 
 	@Autowired
 	private JuegoService juegoService;
@@ -34,19 +35,19 @@ public class MainController {
 			juegos = juegoService.findAllByGenero(idGenero);
 		}
 
-		model.addAttribute("Generos", categoryService.findAll());
+		model.addAttribute("Generos", generoService.findAll());
 
-		model.addAttribute("productos", juegos);
+		model.addAttribute("Juegos", juegos);
 
 		return "index";
 	}
-/*	@GetMapping("/producto/{id}")
+	@GetMapping("/Juego/{id}")
 	public String showDetails(@PathVariable("id") Long id, Model model) {
-		Producto producto = productService.findById(id);
-		if(producto!=null) {
-			model.addAttribute(producto);
+		Juego juego = juegoService.findById(id);
+		if(juego!=null) {
+			model.addAttribute(juego);
 			return "detail";
 		}
 		return "redirect:/";
-	}*/
+	}
 }

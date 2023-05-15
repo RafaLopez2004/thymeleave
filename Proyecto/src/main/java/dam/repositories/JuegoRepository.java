@@ -9,7 +9,7 @@ import dam.model.Genero;
 import dam.model.Juego;
 
 public interface JuegoRepository extends JpaRepository<Juego, Long> {
-	public final int PRODUCTOS_ALEATORIOS=8;
+	public final int PRODUCTOS_ALEATORIOS=20;
 	public List<Juego> findByGenero(Genero genero);
 	
 	@Query("select p.id from Juego p")

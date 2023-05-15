@@ -1,6 +1,5 @@
 package dam.model;
 
-import java.util.HashSet;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,16 +12,18 @@ import jakarta.persistence.OneToMany;
 public class Genero {
 	
 	@Id
-	String nombre;
+	private long id;
+	
+	private String nombre;
 	
 	@Lob
-	String descripcion;
+	private String descripcion;
 	
-	@OneToMany(mappedBy="genero", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
-	private HashSet<Juego> juegos = new HashSet<Juego>();
+	public Genero() {}
 	
-	public Genero(String nombre, String descripcion) {
+	public Genero(long id, String nombre, String descripcion) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 	}
@@ -43,8 +44,12 @@ public class Genero {
 		this.descripcion = descripcion;
 	}
 
-	public HashSet<Juego> getJuegos() {
-		return juegos;
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return this.id;
 	}
 	
 }

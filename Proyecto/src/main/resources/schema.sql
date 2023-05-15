@@ -1,19 +1,20 @@
+drop table if exists Juego;
 drop table if exists Plataforma;
-drop table if exists Producto;
 drop table if exists Genero;
 drop sequence if exists hibernate_sequence;
 create sequence hibernate_sequence start with 100 increment by 1;
 
 
 create table Genero (
+	id bigint not null auto_increment,
 	nombre varchar(512), 
     descripcion blob,
-	primary key (nombre)
+	primary key (id)
 );
 
 create table Plataforma (
 	id bigint not null auto_increment, 
-	nombrePlataforma varchar(20),
+	nombre_Plataforma varchar(20),
     descripcion blob,
 	primary key (id)
 );
@@ -21,13 +22,13 @@ create table Plataforma (
 create table Juego (
 	id bigint not null auto_increment, 
 	nombre varchar(512), 
-	genero varchar(512),
+	genero_id bigint,
 	descripcion blob, 
 	pvp float not null, 
 	descuento float not null, 
 	imagen varchar(512), 
-    plataforma bigint,
+    plataforma_id bigint,
 	primary key (id),
-    constraint fk_juego_genero foreign key (genero) references Genero(nombre) ON DELETE CASCADE ON UPDATE CASCADE,
-    constraint fk_juego_plataforma foreign key (plataforma) references Plataforma(id) ON DELETE CASCADE ON UPDATE CASCADE
+    constraint fk_juego_genero foreign key (genero_id) references Genero(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    constraint fk_juego_plataforma foreign key (plataforma_id) references Plataforma(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
