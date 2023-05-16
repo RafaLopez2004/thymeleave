@@ -92,13 +92,16 @@
 														th:text="${#numbers.formatCurrency(Juego.pvp)}">12,00€</span>
 													<span class="label label-danger"
 														th:text=${#numbers.formatPercent(Juego.descuento,1,0)}>1%</span>
+
+
 												</th:block>
 											</div>
 										</div>
 										<div class="row">
-											<div class="rating col-md-4">
+											<div class="plataform col-md-4">
 												<p>
-													<span th:text="${#strings.abbreviate(Juego.getPlataformaNombre,20)}"></span>
+													<span
+														th:text="${#strings.abbreviate(Juego.getPlataformaNombre,20)}"></span>
 												</p>
 											</div>
 										</div>

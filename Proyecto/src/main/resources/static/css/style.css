@@ -153,7 +153,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     padding: 8px 0 8px 0;
-    text-align: center;
+    text-align: left;
 }
 
 .price-text-color .price-original {
@@ -164,20 +164,18 @@ body {
 	padding: 0 5px 0 5px;
 }
 
-.col-item .info .rating
+.col-item .info .plataform
 {
+	white-space: nowrap;
     color: #777;
 }
 
-.col-item .rating
+.col-item .plataform
 {    
     float: left;
     font-size: 17px;
-    text-align: right;
-    line-height: 52px;
-    margin-bottom: 10px;
-    height: 52px;
-    padding-right: 30px;
+    text-align: left;
+    padding-left: 29px ;
 }
 
 .col-item .separator
@@ -280,7 +278,7 @@ body {
  }
  
  /**
-   * Gestión de categorias
+   * GestiÃ³n de categorias
    */
   
  .icono-categoria {
