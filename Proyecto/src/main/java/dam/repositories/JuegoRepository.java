@@ -20,5 +20,17 @@ public interface JuegoRepository extends JpaRepository<Juego, Long> {
 	
 	@Query("select count(p) from Juego p where p.genero = ?1")
 	public int findNumJuegosByGenero(Genero genero);
-		
+	
+	/**
+	 * 
+	 * @param clave
+	 * @return
+	 */
+	@Query("select p from Juego p where nombre like %?1%")
+	public List<Juego> findByClave(String clave);
+	
+	@Query("select p from Juego p where pvp = ?1")
+	public List<Juego> findByClave(float clave);
+	
+
 }

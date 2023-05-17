@@ -7,12 +7,12 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title></title>
 
-
 <!-- Bootstrap -->
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="../static/css/style.css" th:href="@{/css/style.css}"
+
+<link href="../../static/css/style.css" th:href="@{/css/style.css}"
 	rel="stylesheet" />
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -21,6 +21,12 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+<style>
+body {
+	margin-top: 20px;
+}
+</style>
 </head>
 <body>
 
@@ -42,66 +48,63 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Opciones <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="/admin/Genero/"
-								th:href="@{/admin/Genero/}">Gestión de categorías</a></li>
+							<li><a href="/admin/Genero/" th:href="@{/admin/Genero/}">Gestión
+									de genero</a></li>
 							<li><a href="/admin/Juego/" th:href="@{/admin/Juego/}">Gestión
-									de Juegos</a></li>
+									de juegos</a></li>
 						</ul></li>
-				</ul>				
+				</ul>
+
 			</div>
 
 		</div>
 	</nav>
-
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4">
-				<img src="http://placehold.it/400x400" alt=""
-					th:src="${#strings.isEmpty(Juego.imagen)} ? 'http://placehold.it/350x260' : ${Juego.imagen}"
-					class="img-responsive" />
-			</div>
-			<div class="col-md-8">
-				<h1 class="product-name" th:text=${Juego.nombre}>Nombre del
-					Juego</h1>
-				<div class="product-price">
-					<div class="row">
-						<div class=col-md-4>
-							<span class="pvp"
-								th:text="${Juego.descuento == 0} ? ${#numbers.formatCurrency(Juego.pvp)} : ${#numbers.formatCurrency(Juego.pvp * (1 - Juego.descuento))}">100€</span>
-						</div>
-						<th:block th:if="${Juego.descuento > 0}">
-							<div class="col-md-3 pvp-no-discounted">
-								<span th:text="${#numbers.formatCurrency(Juego.pvp)}">120€</span>
-							</div>
-							<div class="col-md-3 discount">
-								<span class="label-discount">Descuento </span> <span
-									class="label label-danger"
-									th:text=${#numbers.formatPercent(Juego.descuento,1,0)}>12%</span>
-							</div>
-						</th:block>
-					</div>
+			<div class="col-md-offset-1 col-md-10">
+				<div class="pull-right">
+					<a href="form-Genero.html" th:href="@{/admin/Genero/nuevo}"
+						class="btn btn-primary">Nuevo genero</a>
 				</div>
-				<! ––
-				<div class="row">
-					<div class="detail-rating col-md-4">
-						<span th:each="i:${#numbers.sequence(1,5)}" class="glyphicon"
-							th:classappend="${i <= Juego.getPuntuacionMedia()} ? 'glyphicon-star': 'glyphicon-star-empty'"></span>
-					</div>
-
-					<div class="detail-rating col-md-4">
-						<p>
-							<span
-							th:text="${#numbers.formatDecimal(Juego.getPuntuacionMedia(),1,1)}">4</span>/5
-						</p>
-					</div>
-				</div> -- >
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Descripcion</th>
+							<th>Operaciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="Genero : ${Generos}">
+							<td th:text="${Genero.nombre}"></td>
+							<td th:text="${Genero.descripcion}"></td>
+							<td class="operaciones"><a href="#" class="btn btn-primary">Editar</a>
+								<button type="button" class="btn btn-danger" data-toggle="modal"
+									data-target="#delete-modal">Borrar</button></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<h3>Características</h3>
-				<p th:text="${Juego.descripcion}">Descripción</p>
+	</div>
+
+	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Borrar Genero</h4>
+				</div>
+				<div class="modal-body">
+					<p>¿Está usted seguro de borrar este Genero?</p>
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<a href="#" class="btn btn-danger">Sí</a>
+				</div>
 			</div>
+
 		</div>
 	</div>
 
@@ -110,6 +113,8 @@
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 
 </body>
 </html>

@@ -26,15 +26,17 @@ public class MainController {
 	private JuegoService juegoService;
 
 	@GetMapping("/")
-	public String index(@RequestParam(name="idGenero", required=false) Long idGenero, Model model) {
+	public String index(@RequestParam(name="idGenero", required=false) Long idGenero , 
+			@RequestParam(name="palabraClave", required=false) String palabraClave, Model model) {
 		List<Juego> juegos;
 
-		if(idGenero==null) {
+		if(idGenero==null && palabraClave==null) {
 			juegos = juegoService.obtenerJuegosAleatorios(JuegoRepository.PRODUCTOS_ALEATORIOS);
-		}else {
+		}else if(idGenero!=null) {
 			juegos = juegoService.findAllByGenero(idGenero);
+		}else {
+			juegos = juegoService.findAllByClave(palabraClave);
 		}
-
 		model.addAttribute("Generos", generoService.findAll());
 
 		model.addAttribute("Juegos", juegos);
@@ -45,7 +47,7 @@ public class MainController {
 	public String showDetails(@PathVariable("id") Long id, Model model) {
 		Juego juego = juegoService.findById(id);
 		if(juego!=null) {
-			model.addAttribute(juego);
+			model.addAttribute("Juego", juego);
 			return "detail";
 		}
 		return "redirect:/";
