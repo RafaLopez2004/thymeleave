@@ -26,10 +26,10 @@ public interface JuegoRepository extends JpaRepository<Juego, Long> {
 	 * @param clave
 	 * @return
 	 */
-	@Query("select p from Juego p where nombre like %?1%")
+	@Query("select p from Juego p where p.nombre like %?1%")
 	public List<Juego> findByClave(String clave);
 	
-	@Query("select p from Juego p where pvp = ?1")
+	@Query("select p from Juego p where p.pvp like ?1 OR p.pvp < ?1")
 	public List<Juego> findByClave(float clave);
 	
 
