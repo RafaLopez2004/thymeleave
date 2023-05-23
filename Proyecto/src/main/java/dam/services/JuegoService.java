@@ -25,16 +25,14 @@ public class JuegoService {
 	
 	public List<Juego> findAllByClave(String clave) {
 		List<Juego> juegos;
-		// Convertimos la clave a un numero, si salta excepcion significa que no es un numero, 
-		// por lo que estamos buscando por el nombre y no el precio
-		try {
-			juegos = juegoRepository.findByClave(Float.parseFloat(clave));
-		} catch (NumberFormatException e) {
-			juegos = juegoRepository.findByClave(clave);
-		}
+		juegos = juegoRepository.findByClave(clave);
 		return juegos;
 	}
-	
+	public List<Juego> findAllByClave(float clave) {
+		List<Juego> juegos;
+		juegos = juegoRepository.findByClave(clave);
+		return juegos;
+	}
 	public List<Juego> findAllByGenero(Genero genero) {
 		return juegoRepository.findByGenero(genero);
 	}

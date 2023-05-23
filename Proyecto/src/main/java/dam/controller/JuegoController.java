@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,16 +48,16 @@ public class JuegoController {
 	}
 
 	@PostMapping("/nuevo/submit")
-	public String submitNuevoJuego(@Valid Juego juego, BindingResult bindingResult, Model model) {
+	public String submitNuevoJuego(@ModelAttribute("Juego") Juego juego, Model model) {
 
-		if (bindingResult.hasErrors()) {
+	/*	if (bindingResult.hasErrors()) {
 			model.addAttribute("Genero", generoService.findAll());
 			return "admin/form-Juego";
-		} else {
+		} else {*/
 			juegoService.save(juego);
 			return "redirect: /admin/Juego/";
 
-		}
+		/*}*/
 
 	}
 
